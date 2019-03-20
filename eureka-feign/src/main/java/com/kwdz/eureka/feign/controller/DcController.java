@@ -20,14 +20,9 @@ public class DcController {
     @Autowired
     DcClient dcClient;
 
-    @GetMapping("/dc")
+    @GetMapping("/consumer")
     public String dc() {
         return dcClient.consumer();
-    }
-
-    @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String handleFileUpload(@RequestPart(value = "file") MultipartFile file) {
-        return file.getName();
     }
 
 }
