@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/vivtoum/config-repo-demo/
+#          search-paths: repo
+#          username:
+#          password:
+
+server:
+  port: 1201
+
+encrypt:
+  key: vivtoum
+  key-store:
+    location: classpath:/config-server.keystore
+    alias: config-server
+    password: 123456
+    secret: 123456
