@@ -8,7 +8,7 @@ spring:
         service-id: config-server-git
         enabled: true
       profile: dev
-#      label: master
+      label: master
 #      /{application}/{profile}[/{label}]
 #      /{application}-{profile}.yml
 #      /{label}/{application}-{profile}.yml

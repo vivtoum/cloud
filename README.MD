@@ -5,7 +5,7 @@
 
 细节讲解
 ====
-* config地址详解
+* config详解
 
         /{application}/{profile}[/{label}]/{application}-{profile}.yml
         /{label}/{application}-{profile}.yml
@@ -13,4 +13,6 @@
         /{label}/{application}-{profile}.properties
         
         访问http://localhost:1201/config-client/dev/master，上面的url会映射{application}-{profile}.properties对应的配置文件，其中{label}对应Git上不同的分支，默认为master。
-        所以我们最终访问的配置文件是：config-client服务里面配置的仓库地址uri--》dev配置文件--》master分支的属性文件
+        所以我们最终访问的配置文件是：application--》dev配置文件--》master分支的属性文件
+        如果config客户端里，在controller添加@RefreshScope注解，可以访问 localhost:xxxx/refresh 更新刷新配置文件的更新
+        
