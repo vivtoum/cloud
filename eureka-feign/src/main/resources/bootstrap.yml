@@ -1,15 +1,19 @@
 spring:
   application:
     name: eureka-fegin
-  #    name: config-client
+  #    tree: master
   cloud:
     config:
       discovery:
         service-id: config-server-git
         enabled: true
       profile: dev
-      label: master
-
+#      label: master
+#      /{application}/{profile}[/{label}]
+#      /{application}-{profile}.yml
+#      /{label}/{application}-{profile}.yml
+#      /{application}-{profile}.properties
+#      /{label}/{application}-{profile}.properties
 
 management:
   security:

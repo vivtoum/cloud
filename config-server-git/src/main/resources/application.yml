@@ -1,22 +1,32 @@
 spring:
   application:
-    name: config-server
+    name: config-server-git
   cloud:
     config:
       server:
         git:
           uri: https://github.com/vivtoum/config-repo-demo/
-#          search-paths: repo
-#          username:
-#          password:
+          search-paths: config
+
 
 server:
   port: 1201
 
-encrypt:
-  key: vivtoum
-  key-store:
-    location: classpath:/config-server.keystore
-    alias: config-server
-    password: 123456
-    secret: 123456
+#encrypt:
+#  key: vivtoum
+#  key-store:
+#    location: classpath:/config-server.keystore
+#    alias: config-server
+#    password: 123456
+#    secret: 123456
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    service-url:
+      defaultZone: http://localhost:1001/eureka/
+    registry-fetch-interval-seconds: 10
+
