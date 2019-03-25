@@ -1,9 +1,9 @@
 spring:
   application:
-    name: eureka-fegin
-  #    name: config-client
+    name: eureka-client
   profiles:
     active: dev
+  #    name: config-client
   cloud:
     config:
       discovery:

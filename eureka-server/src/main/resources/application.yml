@@ -3,7 +3,6 @@ svc:
   port1: 1001
   port2: 1002
   port3: 1003
-  hostname: localhost
 ###### svc1 ######
 eureka:
   instance:
@@ -13,6 +12,8 @@ eureka:
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://svc2:${svc.port2}/eureka/,http://svc3:${svc.port3}/eureka/
+  server:
+    enable-self-preservation: false
 spring:
   application:
     name: eureka-service
@@ -29,6 +30,8 @@ eureka:
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://svc1:${svc.port1}/eureka/,http://svc3:${svc.port3}/eureka/
+  server:
+    enable-self-preservation: false
 spring:
   application:
     name: eureka-service
@@ -45,6 +48,8 @@ eureka:
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://svc2:${svc.port2}/eureka/,http://svc1:${svc.port1}/eureka/
+  server:
+    enable-self-preservation: false
 spring:
   application:
     name: eureka-service
