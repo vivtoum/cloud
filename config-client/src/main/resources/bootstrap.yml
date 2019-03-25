@@ -10,7 +10,6 @@ spring:
       profile: dev
       label: master
 
-
 management:
   security:
     enabled: false

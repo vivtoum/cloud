@@ -12,13 +12,15 @@ spring:
 server:
   port: 1201
 
-#encrypt:
-#  key: vivtoum
-#  key-store:
-#    location: classpath:/config-server.keystore
-#    alias: config-server
-#    password: 123456
-#    secret: 123456
+################## 配置文件加密配置
+encrypt:
+  key: vivtoum
+  ################## 非对性加密配置
+  key-store:
+    location: classpath:/config-server.keystore
+    alias: config-server
+    password: 123456
+    secret: 123456
 
 eureka:
   instance:
