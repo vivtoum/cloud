@@ -12,7 +12,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://svc2:${svc.port2}/eureka/,http://svc3:${svc.port3}/eureka/
+      defaultZone: http://${svc.hostname}:${svc.port2}/eureka/,http://${svc.hostname}:${svc.port3}/eureka/
 spring:
   application:
     name: eureka-service
@@ -28,13 +28,13 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://svc1:${svc.port1}/eureka/,http://svc3:${svc.port3}/eureka/
+      defaultZone: http://${svc.hostname}:${svc.port1}/eureka/,http://${svc.hostname}:${svc.port3}/eureka/
 spring:
   application:
     name: eureka-service
   profiles: svc2
 server:
-  port: 1002
+  port: 1001
 ---
 ###### svc3 ######
 eureka:
@@ -44,9 +44,9 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://svc2:${svc.port2}/eureka/,http://svc1:${svc.port1}/eureka/
+      defaultZone: http://${svc.hostname}:${svc.port2}/eureka/,http://${svc.hostname}:${svc.port1}/eureka/
 spring:
   application:
     name: eureka-service
 server:
-  port: 1003
+  port: 1001

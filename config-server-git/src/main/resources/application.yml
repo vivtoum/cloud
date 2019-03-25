@@ -29,6 +29,6 @@ eureka:
     lease-expiration-duration-in-seconds: 20
   client:
     service-url:
-      defaultZone: http://localhost:1001/eureka/
+      defaultZone: http://192.168.200.128:1001/eureka/,http://192.168.200.128:1002/eureka/,http://192.168.200.128:1003/eureka/
     registry-fetch-interval-seconds: 10
 

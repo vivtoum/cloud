@@ -2,7 +2,7 @@
 ====  
 * MD文档编写：[创建README.md文件](https://blog.csdn.net/zhao_jing_bo/article/details/68063070)
 * 对称性加密：[Spring Cloud Config服务端配置细节(二)之加密解密](https://segmentfault.com/a/1190000011680775)
-
+* Eureka集群：[Spring Cloud Eureka 集群搭建 - 以及发现一个 “直觉BUG”](https://www.cnblogs.com/hfultrastrong/p/8549590.html)
 
 
 细节讲解
