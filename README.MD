@@ -8,6 +8,7 @@
 * Eureka 集群节点均出现在 unavailable-replicas:[Eureka高可用，节点均出现在unavailable-replicas下](https://www.jianshu.com/p/59c54ccc6ba6)
 ### Eureka Config 配置中心
 * 远程配置文件属性值加密：[Spring Cloud Config服务端配置细节(二)之加密解密](https://segmentfault.com/a/1190000011680775)
+* 配置中心自动刷新获取最url新配置：[pringCloud Config(配置中心)实现配置自动刷新](https://blog.csdn.net/wtdm_160604/article/details/83720391)
 ### 其他
 * MD 文档编写：[创建README.md文件](https://blog.csdn.net/zhao_jing_bo/article/details/68063070)
 

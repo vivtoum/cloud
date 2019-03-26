@@ -4,19 +4,30 @@ spring:
   #    name: config-client
   profiles:
     active: dev
+
+management:
+  security:
+    enabled: false
+
+---
+spring:
+  profiles: dev
   cloud:
     config:
       discovery:
         service-id: config-server-git
         enabled: true
       profile: ${spring.profiles.active}
-      label: ${spring.profiles.active}
-
-management:
-  security:
-    enabled: false
-
+      label: master
+  rabbitmq:                                #本地环境不需要配置mq
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.200.128:1001/eureka/,http://192.168.200.128:1002/eureka/,http://192.168.200.128:1003/eureka/
+      defaultZone: http://svc1:1001/eureka/,http://svc2:1002/eureka/,http://svc3:1003/eureka/
+security:
+  basic:
+    enabled: false

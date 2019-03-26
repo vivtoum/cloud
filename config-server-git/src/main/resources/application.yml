@@ -2,93 +2,33 @@ spring:
   application:
     name: config-server-git
   profiles:
-    active: local
+    active: dev
   cloud:
     config:
       server:
         git:
           uri: https://github.com/vivtoum/config-repo-demo/
-          search-paths: config/${spring.profiles.active}/
+          search-paths: config/${spring.profiles.active}
           default-label: ${spring.profiles.active}   #解决监控down
 server:
   port: 1201
+
+# 关闭安全管理
+management:
+  security:
+    enabled: false
+endpoints:
+  health:
+    sensitive: false
 ---
 ###### 宿舍虚拟机
-
-################## 配置文件加密配置
-encrypt:
-  key: vivtoum
-  ################## 非对性加密配置
-  key-store:
-    location: classpath:/config-server.keystore
-    alias: config-server
-    password: 123456
-    secret: 123456
-
-eureka:
-  instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 20
-  client:
-    service-url:
-      defaultZone: http://192.168.200.128:1001/eureka/,http://192.168.200.128:1002/eureka/,http://192.168.200.128:1003/eureka/
-    registry-fetch-interval-seconds: 10
 spring:
   profiles: dev
-
-
----
-###### 小米手提虚拟机
-
-################## 配置文件加密配置
-encrypt:
-  key: vivtoum
-  ################## 非对性加密配置
-  key-store:
-    location: classpath:/config-server.keystore
-    alias: config-server
-    password: 123456
-    secret: 123456
-
-eureka:
-  instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 20
-  client:
-    service-url:
-      defaultZone: http://192.168.200.128:1001/eureka/,http://192.168.200.128:1002/eureka/,http://192.168.200.128:1003/eureka/
-    registry-fetch-interval-seconds: 10
-spring:
-  profiles: mi
-
----
-###### 阿里云服务器
-
-################## 配置文件加密配置
-encrypt:
-  key: vivtoum
-  ################## 非对性加密配置
-  key-store:
-    location: classpath:/config-server.keystore
-    alias: config-server
-    password: 123456
-    secret: 123456
-
-eureka:
-  instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 20
-  client:
-    service-url:
-      defaultZone: http://39.104.107.186:1001/eureka/,http://39.104.107.186:1002/eureka/,http://39.104.107.186:1003/eureka/
-    registry-fetch-interval-seconds: 10
-spring:
-  profiles: prod
----
-###### idea自身服务，修改hosts模拟集群
+  rabbitmq:                    #本地环境不需要配置mq，但是需要启动mq,Springboot会自动连接本地mq
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 ################## 配置文件加密配置
 encrypt:
@@ -109,5 +49,87 @@ eureka:
     service-url:
       defaultZone: http://svc1:1001/eureka/,http://svc2:1002/eureka/,http://svc3:1003/eureka/
     registry-fetch-interval-seconds: 10
+---
+###### 小米手提虚拟机
+spring:
+  profiles: mi
+  rabbitmq:                    #本地环境不需要配置mq，但是需要启动mq,Springboot会自动连接本地mq
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+################## 配置文件加密配置
+encrypt:
+  key: vivtoum
+  ################## 非对性加密配置
+  key-store:
+    location: classpath:/config-server.keystore
+    alias: config-server
+    password: 123456
+    secret: 123456
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    service-url:
+      defaultZone: http://192.168.200.128:1001/eureka/,http://192.168.200.128:1002/eureka/,http://192.168.200.128:1003/eureka/
+    registry-fetch-interval-seconds: 10
+---
+###### 阿里云服务器
+spring:
+  profiles: prod
+  rabbitmq:                    #本地环境不需要配置mq，但是需要启动mq,Springboot会自动连接本地mq
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+################## 配置文件加密配置
+encrypt:
+  key: vivtoum
+  ################## 非对性加密配置
+  key-store:
+    location: classpath:/config-server.keystore
+    alias: config-server
+    password: 123456
+    secret: 123456
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    service-url:
+      defaultZone: http://39.104.107.186:1001/eureka/,http://39.104.107.186:1002/eureka/,http://39.104.107.186:1003/eureka/
+    registry-fetch-interval-seconds: 10
+---
+###### idea自身服务，修改hosts模拟集群
 spring:
   profiles: local
+  rabbitmq:                    #本地环境不需要配置mq，但是需要启动mq,Springboot会自动连接本地mq
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+################## 配置文件加密配置
+encrypt:
+  key: vivtoum
+  ################## 非对性加密配置
+  key-store:
+    location: classpath:/config-server.keystore
+    alias: config-server
+    password: 123456
+    secret: 123456
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    service-url:
+      defaultZone: http://svc1:1001/eureka/,http://svc2:1002/eureka/,http://svc3:1003/eureka/
+    registry-fetch-interval-seconds: 10
