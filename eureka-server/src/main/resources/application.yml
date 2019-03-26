@@ -4,6 +4,12 @@ svc:
   port2: 1002
   port3: 1003
 ###### svc1 ######
+spring:
+  application:
+    name: eureka-service
+  profiles: svc1
+server:
+  port: 1001
 eureka:
   instance:
     hostname: localhost
@@ -14,12 +20,7 @@ eureka:
       defaultZone: http://svc2:${svc.port2}/eureka/,http://svc3:${svc.port3}/eureka/
   server:
     enable-self-preservation: false
-spring:
-  application:
-    name: eureka-service
-  profiles: svc1
-server:
-  port: 1001
+
 ---
 ###### svc2 ######
 eureka:
