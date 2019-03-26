@@ -3,7 +3,8 @@ svc:
   port1: 1001
   port2: 1002
   port3: 1003
-###### svc1 ######
+###### svc1 #####
+---
 spring:
   application:
     name: eureka-service
@@ -12,47 +13,50 @@ server:
   port: 1001
 eureka:
   instance:
-    hostname: localhost
+    hostname: svc1
+    instance-id: ${spring.application.name}:${server.port}
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    register-with-eureka: true
+    fetch-registry: true
     serviceUrl:
       defaultZone: http://svc2:${svc.port2}/eureka/,http://svc3:${svc.port3}/eureka/
-  server:
-    enable-self-preservation: false
-
+#  server:
+#    enable-self-preservation: false
 ---
 ###### svc2 ######
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://svc1:${svc.port1}/eureka/,http://svc3:${svc.port3}/eureka/
-  server:
-    enable-self-preservation: false
 spring:
   application:
     name: eureka-service
   profiles: svc2
 server:
   port: 1002
----
-###### svc3 ######
 eureka:
   instance:
-    hostname: localhost
+    hostname: svc2
+    instance-id: ${spring.application.name}:${server.port}
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    register-with-eureka: true
+    fetch-registry: true
     serviceUrl:
-      defaultZone: http://svc2:${svc.port2}/eureka/,http://svc1:${svc.port1}/eureka/
-  server:
-    enable-self-preservation: false
+      defaultZone: http://svc1:${svc.port1}/eureka/,http://svc3:${svc.port3}/eureka/
+#  server:
+#    enable-self-preservation: false
+---
+###### svc3 ######
 spring:
   application:
     name: eureka-service
+  profiles: svc3
 server:
   port: 1003
+eureka:
+  instance:
+    hostname: svc3
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://svc2:${svc.port2}/eureka/,http://svc1:${svc.port1}/eureka/
+#  server:
+#    enable-self-preservation: false
