@@ -5,10 +5,18 @@
 * Eureka 集群：[Spring Cloud Eureka 集群搭建 - 以及发现一个 “直觉BUG”](https://www.cnblogs.com/hfultrastrong/p/8549590.html)
 * Eureka Server 集群同步：[深入理解Eureka Server集群同步](https://www.jianshu.com/p/b8c614c442e0)
 * Eureka 参数配置项详解：[Eureka参数配置项详解](https://blog.csdn.net/qq_33594101/article/details/80430947)
-* Eureka 集群节点均出现在 unavailable-replicas:[Eureka高可用，节点均出现在unavailable-replicas下](https://www.jianshu.com/p/59c54ccc6ba6)
+* Eureka 集群节点均出现在不可用片区：[Eureka高可用，节点均出现在unavailable-replicas下](https://www.jianshu.com/p/59c54ccc6ba6)
+
 ### Eureka Config 配置中心
 * 远程配置文件属性值加密：[Spring Cloud Config服务端配置细节(二)之加密解密](https://segmentfault.com/a/1190000011680775)
 * 配置中心自动刷新获取最url新配置：[pringCloud Config(配置中心)实现配置自动刷新](https://blog.csdn.net/wtdm_160604/article/details/83720391)
+
+### Eureka Feign 调用服务
+* Eureka + Zuul + Feign + Hystrix：[手把手带你整合eureka&zuul&feign&hystrix](https://www.jianshu.com/p/cab8f83b0f0e)
+
+### Eureka Zuul 路由
+* 负载均衡示例：[Zuul和Eureka的负载均衡示例](https://www.jianshu.com/p/c93b285ce32e)
+
 ### 其他
 * MD 文档编写：[创建README.md文件](https://blog.csdn.net/zhao_jing_bo/article/details/68063070)
 
