@@ -26,12 +26,12 @@ public class AccessFilter extends ZuulFilter {
      */
     @Override
     public String filterType() {
-        return "pre"; //前置过滤器
+        return "pre";
     }
 
     @Override
     public int filterOrder() {
-        return 0; //过滤器的执行顺序，数字越大优先级越低
+        return 0;
     }
 
     @Override
