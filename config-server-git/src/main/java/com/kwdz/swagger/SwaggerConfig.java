@@ -16,7 +16,9 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
                 .select()
+                //  只扫描这个包下的restController注释
                 .apis(RequestHandlerSelectors.basePackage("com.kwdz"))
                 .paths(PathSelectors.any())
                 .build();

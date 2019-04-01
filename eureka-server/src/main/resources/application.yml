@@ -3,6 +3,10 @@ svc:
   port1: 1001
   port2: 1002
   port3: 1003
+  host:
+    tx: 118.24.203.80
+    ali1: 39.104.49.60
+    ali2: 39.104.107.186
 ###### svc1 #####
 ---
 spring:
@@ -58,5 +62,75 @@ eureka:
     fetch-registry: true
     serviceUrl:
       defaultZone: http://svc2:${svc.port2}/eureka/,http://svc1:${svc.port1}/eureka/
+#  server:
+#    enable-self-preservation: false
+---
+###### tx ######
+spring:
+  application:
+    name: eureka-service
+  profiles: tx
+server:
+  port: 1001
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://39.104.49.60:1001/eureka/,http://39.104.107.186:1001/eureka/
+#  server:
+#    enable-self-preservation: false
+---
+###### ali1 ######
+spring:
+  application:
+    name: eureka-service
+  profiles: ali1
+server:
+  port: 1001
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://118.24.203.80:1001/eureka/,http://39.104.107.186:1001/eureka/
+#  server:
+#    enable-self-preservation: false
+---
+###### ali2 ######
+spring:
+  application:
+    name: eureka-service
+  profiles: ali2
+server:
+  port: 1001
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://118.24.203.80:1001/eureka/,http://39.104.49.60:1001/eureka/
+#  server:
+#    enable-self-preservation: false
+---
+###### 云服务器单例 ######
+spring:
+  application:
+    name: eureka-service
+  profiles: single
+server:
+  port: 1001
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 #  server:
 #    enable-self-preservation: false
