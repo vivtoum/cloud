@@ -1,0 +1,18 @@
+server:
+  port: 1201
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://vivtoum.tech:1001/eureka/
+
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:properties/ # 搜索src/main/resource 下的properties文件夹下的文件
+  application:
+    name: config-server-local
+  profiles:
+    active: native  # 配置使用本地储存，告诉服务，我现在要启用本地配置(优先考虑采用工程目录resources下配置)

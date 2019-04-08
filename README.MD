@@ -18,8 +18,14 @@
 ### Eureka Zuul 路由
 * 负载均衡示例：[Zuul和Eureka的负载均衡示例](https://www.jianshu.com/p/c93b285ce32e)
 
-### 其他
+### RabbitMQ 
+* CentOS 安装 RabbitMQ：[linux CentOS 7 安装 RabbitMQ Erlang 21.0](https://www.cnblogs.com/caozengling/p/9963476.html)
+* Linux 安装 RabbitMQ：[Linux下安装erlang及rabbitmq](https://www.cnblogs.com/dreasky/p/9146494.html)
+### 日志
 * 分布式日志采集：[spring-cloud 分布式日志采集](https://blog.csdn.net/guduyishuai/article/details/79228306)
+
+
+### 其他
 * MD 文档编写：[创建README.md文件](https://blog.csdn.net/zhao_jing_bo/article/details/68063070)
 
 

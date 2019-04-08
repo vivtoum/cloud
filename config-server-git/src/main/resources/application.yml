@@ -12,12 +12,19 @@ server:
   port: 1201
 
 # 关闭安全管理
-management:
+management:    #SpringCloud 1.5版本暴露接口，暴露/bus-refresh接口
   security:
     enabled: false
 endpoints:
   health:
     sensitive: false
+
+
+#  endpoints:                  #SpringCloud 2.0.0版本以后暴露接口方式
+#    web:
+#      exposure:
+#        include: "*"
+
 ---
 ###### 宿舍虚拟机
 spring:
@@ -159,5 +166,5 @@ eureka:
     lease-expiration-duration-in-seconds: 20
   client:
     service-url:
-      defaultZone: http://118.24.203.80:1001/eureka/,http://39.104.107.186:1001/eureka/,http://39.104.49.60:1001/eureka/
+      defaultZone: http://vivtoum.tech:1001/eureka/
     registry-fetch-interval-seconds: 10

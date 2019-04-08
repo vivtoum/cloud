@@ -1,0 +1,20 @@
+server:
+  port: 8001
+spring:
+  profiles: single
+  application:
+    name: eureka-zuul
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://vivtoum.tech:1001/eureka/
+
+#test: '{cipher}AQB2xJvbko/P5BA9FRffk384b4bowV5HtVgrekKKkY9PO5WbJT/s94+b8xFhdOhuzrSLoHkYnLZLIvuYKpD4VyZLoTphu02n3Ho12uGTNrLvy4NL+yApwmkownvMXwLuEV58Zd6S0pi6rcNs1yM4WaN2Oo+ZV+6ghLg7J8fd1b/iZj3uHq8/vn+6UOupgHpa7a16DzktHJ9w6rIZYwWCFtTEqyWaRENG3dSLAJtyFJe+/9z/oX5DdS8Tj4iAk474edd4uQgxLRc+/d8uohjxbPaMCRHrNwfOyfKBmQHuSRWxUob5u0FMlX024BUrAjTFrGB3pBKs5xcgBwjEki2B+r0g+yAoQe+1wh0z2WTnpuZdCrdtOu8SGvWdMt2MZ/coqPM='
+test: zuul
+
+
+#只要访问以/api/开头的多层目录都可以路由到服务名为cloud-provider的服务上.
+zuul:
+  routes:
+    consumer1: /user/**
