@@ -144,11 +144,11 @@ eureka:
 ###### idea自身服务，修改hosts模拟集群
 spring:
   profiles: single
-#  rabbitmq:                    #本地环境不需要配置mq，但是需要启动mq,Springboot会自动连接本地mq
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
+  rabbitmq:                    #本地环境不需要配置mq，但是需要启动mq,Springboot会自动连接本地mq
+    host: 118.24.203.80
+    port: 5672
+    username: admin
+    password: QQqq407716220
 ################## 配置文件加密配置
 encrypt:
   key: vivtoum
@@ -166,5 +166,5 @@ eureka:
     lease-expiration-duration-in-seconds: 20
   client:
     service-url:
-      defaultZone: http://vivtoum.tech:1001/eureka/
+      defaultZone: http://118.24.203.80:1001/eureka/
     registry-fetch-interval-seconds: 10

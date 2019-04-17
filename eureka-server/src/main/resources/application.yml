@@ -132,5 +132,5 @@ eureka:
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-#  server:
-#    enable-self-preservation: false
+  server:
+    enable-self-preservation: false
