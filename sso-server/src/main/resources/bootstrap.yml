@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: sso-server
+
+  redis:
+    host: 39.104.49.60                                    #部署信息（Redis主机地址）
+    port: 6379                                            #部署信息（Redis访问端口）
+    password: QQqq407716220
+
+server:
+  port: 1111
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://118.24.203.80:1001/eureka/
+
