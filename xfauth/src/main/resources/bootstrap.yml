@@ -1,0 +1,31 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://118.24.203.80:1001/eureka/
+#      defaultZone: http://localhost:1001//eureka/
+
+spring:
+  application:
+    name: auth-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.104.49.60:3306/art
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  redis:
+    host: 39.104.49.60
+    port: 6379
+    password: QQqq407716220
+server:
+  port: 5000
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3

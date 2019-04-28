@@ -1,14 +1,32 @@
 spring:
   application:
     name: sso-server
+  rabbitmq:                                #本地环境不需要配置mq
+    host: 118.24.203.80
+    port: 5672
+    username: guest
+    password: guest
 
   redis:
     host: 39.104.49.60                                    #部署信息（Redis主机地址）
     port: 6379                                            #部署信息（Redis访问端口）
     password: QQqq407716220
 
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.104.49.60:3306/art?useSSL=false
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
 server:
   port: 1111
+  servlet-path: /uaa
+
 eureka:
   client:
     serviceUrl:
