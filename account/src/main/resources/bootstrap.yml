@@ -1,7 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://www.vivtoum.tech:1001//eureka/
+      defaultZone: http://www.vivtoum.tech:1001/eureka/
 #      defaultZone: http://localhost:1001//eureka/
 
 

@@ -21,7 +21,14 @@ zuul:
       path: /accounts/**
       sensitiveHeaders: "*"
       serviceId: account-service
-
+    blog-svc:
+      path: /blog-svc/**
+      sensitiveHeaders: "*"
+      serviceId: blog-svc
+    blog-web:
+      path: /blog-web/**
+      sensitiveHeaders: "*"
+      serviceId: blog-web
   add-proxy-headers: true
 
 security:
