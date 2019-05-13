@@ -1,12 +1,12 @@
-package com.xingfly.xfauth;
+package com.kwdz.sso.server;
 
 import com.google.common.collect.Sets;
-import com.xingfly.xfauth.domain.Authority;
-import com.xingfly.xfauth.domain.Role;
-import com.xingfly.xfauth.domain.User;
-import com.xingfly.xfauth.repository.AuthorityRepository;
-import com.xingfly.xfauth.repository.RoleRepository;
-import com.xingfly.xfauth.service.UserService;
+import com.kwdz.sso.server.domain.Authority;
+import com.kwdz.sso.server.domain.Role;
+import com.kwdz.sso.server.domain.User;
+import com.kwdz.sso.server.repository.AuthorityRepository;
+import com.kwdz.sso.server.repository.RoleRepository;
+import com.kwdz.sso.server.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

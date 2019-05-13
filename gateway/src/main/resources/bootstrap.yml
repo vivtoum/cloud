@@ -8,7 +8,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://118.24.203.80:1001/eureka/
+      defaultZone: http://www.vivtoum.tech:1001/eureka/
 #      defaultZone: http://localhost:1001//eureka/
 
 zuul:
@@ -33,6 +33,3 @@ security:
     resource:
       user-info-uri: http://localhost:${server.port}/uaa/user
       prefer-token-info: false
-
-
-

@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
+ * 授权服务
  * Created by SuperS on 2017/9/25.
  *
  * @author SuperS

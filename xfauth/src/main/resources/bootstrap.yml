@@ -1,7 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://118.24.203.80:1001/eureka/
+      defaultZone: http://www.vivtoum.tech:1001/eureka/
 #      defaultZone: http://localhost:1001//eureka/
 
 spring:
@@ -11,15 +11,15 @@ spring:
     active: ${SPRING_PROFILES_ACTIVE:dev}
   datasource:
     username: root
-    password: 123456
+    password: Vedyou@163.com
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://39.104.49.60:3306/art
+    url: jdbc:mysql://www.vivtoum.tech:3306/art?useSSL=false
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
   redis:
-    host: 39.104.49.60
+    host: www.vivtoum.tech
     port: 6379
     password: QQqq407716220
 server:

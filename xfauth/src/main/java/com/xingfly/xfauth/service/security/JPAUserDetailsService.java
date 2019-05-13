@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
+ * web策略
  * Created by SuperS on 2017/9/25.
  *
  * @author SuperS
