@@ -18,8 +18,8 @@
 </head>
 <body>
 
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
+<div th:if="${message}" style="display: none">
+    <h2 id="upload_msg" th:text="${message}"/>
 </div>
 
 <div class="row-fluid">
@@ -74,6 +74,17 @@
             alert(data);
         })
     }
+
+    $(function () {
+        var upload_msg = $("#upload_msg").text();
+        if (upload_msg !== "" && null != upload_msg) {
+            $.alert({
+                title: 'Alert!',
+                content: upload_msg
+            });
+        }
+    });
+
 </script>
 </body>
 </html>
