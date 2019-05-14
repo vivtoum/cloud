@@ -1,9 +1,9 @@
 package com.kwdz.files.system.controller;
 
+import com.kwdz.commons.util.MD5Util;
 import com.kwdz.files.system.domain.Files;
 import com.kwdz.files.system.domain.FilesEntity;
 import com.kwdz.files.system.service.FilesService;
-import com.kwdz.files.system.util.MD5Util;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

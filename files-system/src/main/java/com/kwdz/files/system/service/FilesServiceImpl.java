@@ -1,11 +1,11 @@
 package com.kwdz.files.system.service;
 
+import com.kwdz.commons.util.FastCopy;
+import com.kwdz.commons.util.RedisUtil;
 import com.kwdz.files.system.domain.Files;
 import com.kwdz.files.system.domain.FilesEntity;
 import com.kwdz.files.system.repository.FilesDao;
 import com.kwdz.files.system.repository.FilesRepository;
-import com.kwdz.files.system.util.FastCopy;
-import com.kwdz.files.system.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * FilesEntity 服务.
  *
- * @author <a href="https://waylau.com">Way Lau</a>
+ * @author YT.Hu
  * @since 1.0.0 2017年7月30日
  */
 @Service
