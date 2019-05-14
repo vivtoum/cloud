@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script th:replace="/fragments/header::header"></script>
+    <script th:replace="fragments/header::header"></script>
 
 </head>
 <body>
@@ -22,7 +22,6 @@
                 <td><input type="submit" value="Upload"/></td>
             </tr>
         </table>
-
     </form>
 </div>
 
@@ -30,13 +29,12 @@
     <table border="1">
         <thead>
         <tr>
-
             <td>文件名称</td>
             <td>ID</td>
             <td>大小</td>
             <td>上传时间</td>
             <td>MD5</td>
-            <!--            <td>删除</td>-->
+            <td>删除</td>
         </tr>
         </thead>
         <tbody>
@@ -48,13 +46,14 @@
             <td th:text="${filesEntity.id }"></td>
             <td th:text="${filesEntity.size }/1024  +'kb'"></td>
             <td th:text="${#dates.format(filesEntity.uploadDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+            F
             <td th:text="${filesEntity.md5}"></td>
-            <!--            <td><a href="javascript:;" th:onclick="handleDelete(${filesEntity.id})">删除</a></td>-->
+            <td><a href="javascript:;" th:onclick="'javascript:handleDelete(\''+${filesEntity.id}+'\');'">删除</a></td>
         </tr>
         </tbody>
     </table>
 </div>
-<script th:replace="/fragments/footer::footer"></script>
+<script th:replace="fragments/footer::footer"></script>
 <script>
     function handleDelete(id) {
         $.ajax('/' + id, {type: "DELETE"}, function (data) {

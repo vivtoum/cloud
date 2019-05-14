@@ -17,7 +17,6 @@
         <module>eureka-server</module>
         <module>eureka-zuul</module>
         <module>config-server-git</module>
-        <module>file-upload</module>
         <module>files-system</module>
     </modules>
 

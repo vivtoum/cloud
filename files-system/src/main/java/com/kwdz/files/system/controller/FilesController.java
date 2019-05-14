@@ -30,13 +30,12 @@ public class FilesController {
     @Autowired
     private FilesService filesService;
 
-    @Value("${server.address}")
-    private String serverAddress;
+    private String serverAddress = "localhost";
 
     @Value("${server.port}")
     private String serverPort;
 
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String index(Model model) {
         // 展示最新二十条数据
         model.addAttribute("files", filesService.listFilesByPage(0, 20));
