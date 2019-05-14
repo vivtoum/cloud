@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Hello World 控制器
  *
- * @author <a href="https://waylau.com">Way Lau</a>
+ * @author YT.Hu
  * @date 2017年1月26日
  */
 @RestController

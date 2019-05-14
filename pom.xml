@@ -14,10 +14,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>commons</module>
         <module>eureka-server</module>
         <module>eureka-zuul</module>
         <module>config-server-git</module>
-        <module>file-upload</module>
         <module>files-system</module>
     </modules>
 
@@ -49,6 +49,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kwdz</groupId>
+                <artifactId>commons</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <!--spring cloud管治中心-->
@@ -194,23 +200,25 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin><!--打包插件（SpringBoot）-->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <finalName>${project.artifactId}</finalName>
-                    <outputDirectory>../package</outputDirectory>
-                </configuration>
-            </plugin>
-            <plugin><!--测试插件（Surefire）-->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin><!--打包插件（SpringBoot）-->
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <finalName>${project.artifactId}</finalName>
+                        <outputDirectory>../package</outputDirectory>
+                    </configuration>
+                </plugin>
+                <plugin><!--测试插件（Surefire）-->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

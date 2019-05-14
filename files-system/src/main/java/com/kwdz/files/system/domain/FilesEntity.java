@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * FilesEntity 文档类.
  *
- * @author <a href="https://waylau.com">Way Lau</a>
+ * @author YT.Hu
  * @since 1.0.0 2017年3月28日
  */
 @Document

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * @version 0.0.1
- * @author: huyt
+ * @author: YT.Hu
  * @date: 2019/5/8 20:37
  */
 @Entity
