@@ -1,6 +1,8 @@
 package com.kwdz.files.system.controller;
 
+import com.kwdz.commons.page.PageInfo;
 import com.kwdz.commons.util.MD5Util;
+import com.kwdz.commons.util.ResultModel;
 import com.kwdz.files.system.domain.Files;
 import com.kwdz.files.system.domain.FilesEntity;
 import com.kwdz.files.system.service.FilesService;
@@ -17,20 +19,23 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.Optional;
 
-
-@CrossOrigin(origins = "*", maxAge = 3600) // 允许所有域名访问
+/**
+ * 文件管理
+ * CrossOrigin允许所有域名访问
+ *
+ * @author YT.Hu
+ * @date 2019-5-15
+ */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class FilesController {
 
     @Autowired
     private FilesService filesService;
-
-    private String serverAddress = "localhost";
 
     @Value("${server.port}")
     private String serverPort;
@@ -45,32 +50,31 @@ public class FilesController {
     /**
      * 分页查询文件
      *
-     * @param pageIndex
-     * @param pageSize
-     * @return
+     * @param pageIndex 当前页数
+     * @param pageSize  每页大小
+     * @return 分页包装类
      */
-    @GetMapping("files/{pageIndex}/{pageSize}")
+    @PostMapping("files")
     @ResponseBody
-    public List<Files> listFilesByPage(@PathVariable int pageIndex, @PathVariable int pageSize) {
-        return filesService.listFilesByPage(pageIndex, pageSize);
+    public ResultModel<PageInfo<Files>> listFilesByPage(int pageIndex, int pageSize) {
+        return ResultModel.of(filesService.listFilesByPage(pageIndex, pageSize));
     }
 
     /**
      * 获取文件片信息
      *
-     * @param id
-     * @return
-     * @throws UnsupportedEncodingException
+     * @param id 文件id
+     * @return 1
      */
     @GetMapping("files/{id}")
     @ResponseBody
-    public ResponseEntity<Object> serveFile(@PathVariable String id) throws UnsupportedEncodingException {
+    public ResponseEntity<Object> serveFile(@PathVariable String id) {
 
         Optional<FilesEntity> file = filesService.getFileById(id);
 
         if (file.isPresent()) {
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName=" + new String(file.get().getName().getBytes("utf-8"), "ISO-8859-1"))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName=" + new String(file.get().getName().getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1))
                     .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
                     .header(HttpHeaders.CONTENT_LENGTH, file.get().getSize() + "").header("Connection", "close")
                     .body(file.get().getContent().getData());
@@ -83,8 +87,8 @@ public class FilesController {
     /**
      * 在线显示文件
      *
-     * @param id
-     * @return
+     * @param id 文件id
+     * @return 响应体
      */
     @GetMapping("/view/{id}")
     @ResponseBody
@@ -107,9 +111,9 @@ public class FilesController {
     /**
      * 上传
      *
-     * @param file
-     * @param redirectAttributes
-     * @return
+     * @param file               文件对象
+     * @param redirectAttributes 重定向属性
+     * @return 1
      */
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
@@ -126,7 +130,7 @@ public class FilesController {
         }
 
         redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+                "文件：" + file.getOriginalFilename() + "上传完成！");
 
         return "redirect:/";
     }
@@ -134,13 +138,14 @@ public class FilesController {
     /**
      * 上传接口
      *
-     * @param file
-     * @return
+     * @param file 文件对象
+     * @return 1
      */
     @PostMapping("/upload")
     @ResponseBody
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
-        Files returnFilesEntity = null;
+        Files returnFilesEntity;
+        String serverAddress = "localhost";
         try {
             FilesEntity f = new FilesEntity(file.getOriginalFilename(), file.getContentType(), String.valueOf(file.getSize()),
                     new Binary(file.getBytes()));
@@ -159,8 +164,8 @@ public class FilesController {
     /**
      * 删除文件
      *
-     * @param id
-     * @return
+     * @param id 文件id
+     * @return 1
      */
     @DeleteMapping("/{id}")
     @ResponseBody

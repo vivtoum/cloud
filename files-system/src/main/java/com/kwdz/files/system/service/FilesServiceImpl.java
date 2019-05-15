@@ -1,6 +1,10 @@
 package com.kwdz.files.system.service;
 
+import com.kwdz.commons.page.FastPage;
+import com.kwdz.commons.page.PageInfo;
+import com.kwdz.commons.util.DateUtils;
 import com.kwdz.commons.util.FastCopy;
+import com.kwdz.commons.util.NumberUtil;
 import com.kwdz.commons.util.RedisUtil;
 import com.kwdz.files.system.domain.Files;
 import com.kwdz.files.system.domain.FilesEntity;
@@ -14,15 +18,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * FilesEntity 服务.
  *
  * @author YT.Hu
- * @since 1.0.0 2017年7月30日
+ * @date 2019-5-15
  */
 @Service
 public class FilesServiceImpl implements FilesService {
@@ -43,8 +45,7 @@ public class FilesServiceImpl implements FilesService {
         FilesEntity filesEntity1 = filesRepository.save(filesEntity);
         Files files = FastCopy.copy(filesEntity1, Files.class);
         filesDao.save(files);
-        redisUtil.del(FILES_LIST_CACHE);
-        redisUtil.set(FILES_LIST_CACHE, listFilesByPage(0, 20));
+        refreshRedis();
         return files;
     }
 
@@ -52,8 +53,7 @@ public class FilesServiceImpl implements FilesService {
     public void removeFile(String id) {
         filesRepository.delete(id);
         filesDao.delete(id);
-        redisUtil.del(FILES_LIST_CACHE);
-        redisUtil.set(FILES_LIST_CACHE, listFilesByPage(0, 20));
+        refreshRedis();
     }
 
     @Override
@@ -62,21 +62,46 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-    public List<Files> listFilesByPage(int pageIndex, int pageSize) {
-        if (redisUtil.hasKey(FILES_LIST_CACHE)) {
-            return FastCopy.copyList((List<Files>) redisUtil.get(FILES_LIST_CACHE), Files.class);
+    public PageInfo<Files> listFilesByPage(int pageIndex, int pageSize) {
+        if (redisUtil.hHasKey(FILES_LIST_CACHE, String.valueOf(pageIndex))) {
+            return FastCopy.copy((PageInfo<Files>) redisUtil.hget(FILES_LIST_CACHE, String.valueOf(pageIndex)), PageInfo.class);
         } else {
             Page<Files> page = null;
-            List<Files> list = null;
 
             Sort sort = new Sort(Direction.DESC, "uploadDate");
             Pageable pageable = new PageRequest(pageIndex, pageSize, sort);
 
             page = filesDao.findAll(pageable);
-            list = page.getContent();
-            redisUtil.set(FILES_LIST_CACHE, list.stream().collect(Collectors.toList()));
-            return list;
+            PageInfo<Files> pageInfo = FastPage.getPageInfo(page, Files.class);
+            pageInfo.setHtml(makeHtml(pageInfo));
+            redisUtil.hset(FILES_LIST_CACHE, String.valueOf(pageIndex), pageInfo, 5 * 60);
+            return pageInfo;
         }
 
+    }
+
+    public static String makeHtml(PageInfo<Files> pageInfo) {
+        StringBuilder stringBuffer = new StringBuilder();
+        pageInfo.getRows().forEach(a -> {
+            a.setSize(String.valueOf(NumberUtil.div2(Integer.valueOf(a.getSize()), 1024)));
+            stringBuffer.append("<tr>");
+            stringBuffer.append("<td>").append(a.getName()).append("</td>");
+            stringBuffer.append("<td>").append(a.getId()).append("</td>");
+            stringBuffer.append("<td>").append(a.getSize()).append("KB</td>");
+            stringBuffer.append("<td>").append(DateUtils.getDate(a.getUploadDate(), DateUtils.yyyyMMddhhmmssStr)).append("</td>");
+            stringBuffer.append("<td>").append(a.getMd5()).append("</td>");
+            stringBuffer
+                    .append("<td>")
+                    .append("<i class='fas fa-times-circle' style='cursor: pointer;' onclick=\"javascript:handleDelete('").append(a.getId()).append("');\">").append("</i>")
+                    .append("<i class='fas fa-arrow-alt-circle-down' style='cursor: pointer;' onclick=\"javascript:window.open('/files/").append(a.getId()).append("');\">").append("</i>")
+                    .append("</td>");
+            stringBuffer.append("</tr>");
+        });
+        return stringBuffer.toString();
+    }
+
+    public void refreshRedis() {
+        redisUtil.del(FILES_LIST_CACHE);
+        redisUtil.hset(FILES_LIST_CACHE, "0", listFilesByPage(0, 20), 5 * 60);
     }
 }
