@@ -119,7 +119,6 @@
                 data: {'pageIndex': page * 1 - 1, 'pageSize': 20},
                 dataType: 'JSON',
                 success: function (data) {
-                    debugger;
                     $('tbody').empty();
                     var page_count = data.data.total;
                     var page_cont = data.data.html;
