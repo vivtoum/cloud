@@ -4,6 +4,7 @@ import com.kwdz.commons.page.FastPage;
 import com.kwdz.commons.page.PageInfo;
 import com.kwdz.commons.util.DateUtils;
 import com.kwdz.commons.util.FastCopy;
+import com.kwdz.commons.util.NumberUtil;
 import com.kwdz.commons.util.RedisUtil;
 import com.kwdz.files.system.domain.Files;
 import com.kwdz.files.system.domain.FilesEntity;
@@ -44,8 +45,7 @@ public class FilesServiceImpl implements FilesService {
         FilesEntity filesEntity1 = filesRepository.save(filesEntity);
         Files files = FastCopy.copy(filesEntity1, Files.class);
         filesDao.save(files);
-        redisUtil.del(FILES_LIST_CACHE);
-        redisUtil.set(FILES_LIST_CACHE, listFilesByPage(0, 20));
+        refreshRedis();
         return files;
     }
 
@@ -53,8 +53,7 @@ public class FilesServiceImpl implements FilesService {
     public void removeFile(String id) {
         filesRepository.delete(id);
         filesDao.delete(id);
-        redisUtil.del(FILES_LIST_CACHE);
-        redisUtil.hset(FILES_LIST_CACHE, "0", listFilesByPage(0, 20));
+        refreshRedis();
     }
 
     @Override
@@ -75,7 +74,7 @@ public class FilesServiceImpl implements FilesService {
             page = filesDao.findAll(pageable);
             PageInfo<Files> pageInfo = FastPage.getPageInfo(page, Files.class);
             pageInfo.setHtml(makeHtml(pageInfo));
-            redisUtil.hset(FILES_LIST_CACHE, String.valueOf(pageIndex), pageInfo);
+            redisUtil.hset(FILES_LIST_CACHE, String.valueOf(pageIndex), pageInfo, 5 * 60);
             return pageInfo;
         }
 
@@ -84,15 +83,25 @@ public class FilesServiceImpl implements FilesService {
     public static String makeHtml(PageInfo<Files> pageInfo) {
         StringBuilder stringBuffer = new StringBuilder();
         pageInfo.getRows().forEach(a -> {
+            a.setSize(String.valueOf(NumberUtil.div2(Integer.valueOf(a.getSize()), 1024)));
             stringBuffer.append("<tr>");
-            stringBuffer.append("<td><a href='files/").append(a.getId()).append("'>").append(a.getName()).append("</a></td>");
+            stringBuffer.append("<td>").append(a.getName()).append("</td>");
             stringBuffer.append("<td>").append(a.getId()).append("</td>");
-            stringBuffer.append("<td>").append(Integer.valueOf(a.getSize()) / 1024).append("KB</td>");
+            stringBuffer.append("<td>").append(a.getSize()).append("KB</td>");
             stringBuffer.append("<td>").append(DateUtils.getDate(a.getUploadDate(), DateUtils.yyyyMMddhhmmssStr)).append("</td>");
             stringBuffer.append("<td>").append(a.getMd5()).append("</td>");
-            stringBuffer.append("<td>").append("<a href=\"javascript:;\" onclick=\"javascript:handleDelete('").append(a.getId()).append("');\">删除</a>").append("</td>");
+            stringBuffer
+                    .append("<td>")
+                    .append("<i class='fas fa-times-circle' style='cursor: pointer;' onclick=\"javascript:handleDelete('").append(a.getId()).append("');\">").append("</i>")
+                    .append("<i class='fas fa-arrow-alt-circle-down' style='cursor: pointer;' onclick=\"javascript:window.open('/files/").append(a.getId()).append("');\">").append("</i>")
+                    .append("</td>");
             stringBuffer.append("</tr>");
         });
         return stringBuffer.toString();
+    }
+
+    public void refreshRedis() {
+        redisUtil.del(FILES_LIST_CACHE);
+        redisUtil.hset(FILES_LIST_CACHE, "0", listFilesByPage(0, 20), 5 * 60);
     }
 }

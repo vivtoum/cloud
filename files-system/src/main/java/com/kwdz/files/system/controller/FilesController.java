@@ -2,6 +2,7 @@ package com.kwdz.files.system.controller;
 
 import com.kwdz.commons.page.PageInfo;
 import com.kwdz.commons.util.MD5Util;
+import com.kwdz.commons.util.ResultModel;
 import com.kwdz.files.system.domain.Files;
 import com.kwdz.files.system.domain.FilesEntity;
 import com.kwdz.files.system.service.FilesService;
@@ -55,8 +56,8 @@ public class FilesController {
      */
     @PostMapping("files")
     @ResponseBody
-    public PageInfo<Files> listFilesByPage(int pageIndex, int pageSize) {
-        return filesService.listFilesByPage(pageIndex, pageSize);
+    public ResultModel<PageInfo<Files>> listFilesByPage(int pageIndex, int pageSize) {
+        return ResultModel.of(filesService.listFilesByPage(pageIndex, pageSize));
     }
 
     /**
@@ -129,7 +130,7 @@ public class FilesController {
         }
 
         redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+                "文件：" + file.getOriginalFilename() + "上传完成！");
 
         return "redirect:/";
     }
