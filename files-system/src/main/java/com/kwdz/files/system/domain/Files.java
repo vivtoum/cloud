@@ -9,12 +9,14 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * @version 0.0.1
- * @author: YT.Hu
- * @date: 2019/5/8 20:37
+ * FilesEntity 文档类.（存到Mysql redis的实体）
+ *
+ * @author YT.Hu
+ * @date 2019/5/8 20:37
  */
 @Entity
 public class Files implements Serializable {
+    private static final long serialVersionUID = -7035854717761480742L;
     private String id;
     private String name;
     private String contentType;

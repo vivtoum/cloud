@@ -49,13 +49,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${files.size()} eq 0">
+                <tr th:if="${files.rows.size()} eq 0">
                     <td colspan="6">没有文件信息！！</td>
                 </tr>
-                <tr th:each="filesEntity : ${files}">
+                <tr th:each="filesEntity : ${files.rows}">
                     <td><a th:href="'files/'+${filesEntity.id}" th:text="${filesEntity.name}"/></td>
                     <td th:text="${filesEntity.id }"></td>
-                    <td th:text="${filesEntity.size }/1024  +'kb'"></td>
+                    <td th:text="${filesEntity.size }/1024  +'KB'"></td>
                     <td th:text="${#dates.format(filesEntity.uploadDate,'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td th:text="${filesEntity.md5}"></td>
                     <td><a href="javascript:;" th:onclick="'javascript:handleDelete(\''+${filesEntity.id}+'\');'">删除</a>
@@ -63,17 +63,57 @@
                 </tr>
                 </tbody>
             </table>
+            <div th:replace="commons/page::page"></div>
         </div>
     </div>
 </div>
 
 <script th:replace="commons/footer::footer"></script>
-<script>
+<script th:inline="javascript">
     function handleDelete(id) {
         $.ajax('/' + id, {type: "DELETE"}, function (data) {
             alert(data);
         })
     }
+
+    $('#pageLimit').bootstrapPaginator({
+        currentPage: 1,
+        totalPages: [[${files.total}]],
+        size: "normal",
+        bootstrapMajorVersion: 3,
+        alignment: "right",
+        numberOfPages: 5,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }//默认显示的是第一页。
+        },
+        onPageClicked: function (event, originalEvent, type, page) {//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+            $.ajax({
+                url: '/files',
+                type: 'post',
+                data: {'pageIndex': page * 1 - 1, 'pageSize': 20},
+                dataType: 'JSON',
+                success: function (data) {
+                    debugger;
+                    $('tbody').empty();
+                    var page_count = data.total;
+                    var page_cont = data.html;
+                    $('tbody').append(page_cont);
+                    $('#last_page').text(page_count)
+                }
+            })
+        }
+    });
 
     $(function () {
         var upload_msg = $("#upload_msg").text();

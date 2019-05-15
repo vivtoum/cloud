@@ -4,10 +4,10 @@
 package com.kwdz.files.system.service;
 
 
+import com.kwdz.commons.page.PageInfo;
 import com.kwdz.files.system.domain.Files;
 import com.kwdz.files.system.domain.FilesEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -45,5 +45,5 @@ public interface FilesService {
      * @param pageSize
      * @return
      */
-    List<Files> listFilesByPage(int pageIndex, int pageSize);
+    PageInfo<Files> listFilesByPage(int pageIndex, int pageSize);
 }

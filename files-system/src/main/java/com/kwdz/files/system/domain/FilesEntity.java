@@ -7,10 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 /**
- * FilesEntity 文档类.
+ * FilesEntity 文档类.（存到MongoDB的实体）
  *
  * @author YT.Hu
- * @since 1.0.0 2017年3月28日
+ * @date 2019-5-15 14:27:10
  */
 @Document
 public class FilesEntity {
